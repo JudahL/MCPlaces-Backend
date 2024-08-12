@@ -7,6 +7,7 @@ namespace MCPlaces_Backend.Models
     public class Place
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         //[ForeignKey("Server")]
         //public int ServerId { get; set; }

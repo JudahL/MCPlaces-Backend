@@ -22,7 +22,7 @@ namespace MCPlaces_Backend.Repository.GenericRepository
             await SaveAsync();
         }
 
-        public async Task<T> Get(Expression<Func<T, bool>> filter = null)
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter = null)
         {
             IQueryable<T> query = dbSet;
 
@@ -34,7 +34,7 @@ namespace MCPlaces_Backend.Repository.GenericRepository
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter = null)
         {
             IQueryable<T> query = dbSet;
 
