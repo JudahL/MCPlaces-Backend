@@ -1,4 +1,6 @@
 using MCPlaces_Backend.Data;
+using MCPlaces_Backend.Models.ApiResponse;
+using MCPlaces_Backend.Models.ApiResponse.Interfaces;
 using MCPlaces_Backend.Repository.PlaceRepository;
 using MCPlaces_Backend.Repository.PlaceRepository.Interfaces;
 using MCPlaces_Backend.Utilities.Mappers;
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option => {
 });
 builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
 builder.Services.AddScoped<IPlaceMapper, PlaceMapper>();
+builder.Services.AddScoped<IApiResponse, ApiResponse>();
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
