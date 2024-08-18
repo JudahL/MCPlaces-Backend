@@ -19,7 +19,6 @@ namespace MCPlaces_Backend.Utilities.Mappers
         public CreatePlaceDto PlaceToCreateDto(Place place)
         {
             return new CreatePlaceDto(
-                place.Id,
                 place.Name,
                 place.Description,
                 place.ImageName,
@@ -52,7 +51,6 @@ namespace MCPlaces_Backend.Utilities.Mappers
         public Place CreateDtoToPlace(CreatePlaceDto createPlaceDto)
         {
             Place place = new Place();
-            place.Id = createPlaceDto.Id;
             place.Name = createPlaceDto.Name;
             place.Description = createPlaceDto.Description;
             place.ImageName = createPlaceDto.ImageName;

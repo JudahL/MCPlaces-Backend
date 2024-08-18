@@ -4,6 +4,7 @@ using MCPlaces_Backend.Models.Dtos;
 using MCPlaces_Backend.Repository.PlaceRepository.Interfaces;
 using MCPlaces_Backend.Utilities.Mappers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using MCPlaces_Backend.Utilities.ActionFilters.Interfaces;
 using System.Net;
 
 namespace MCPlaces_Backend.Controllers
@@ -72,16 +73,11 @@ namespace MCPlaces_Backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ServiceFilter(typeof(IModelValidationActionFilter))]
         public async Task<ActionResult<IApiResponse>> CreatePlace([FromBody] CreatePlaceDto createPlaceDto)
         {
             try
             {
-                if (createPlaceDto == null)
-                {
-                    _apiResponse.Failure("Create Place Dto was not provided.");
-                    return BadRequest(_apiResponse);
-                }
-
                 Place place = _placeMapper.CreateDtoToPlace(createPlaceDto);
 
                 await _placeRepo.CreateAsync(place);
@@ -100,16 +96,11 @@ namespace MCPlaces_Backend.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ServiceFilter(typeof(IModelValidationActionFilter))]
         public async Task<ActionResult<IApiResponse>> UpdatePlace(int id, [FromBody] UpdatePlaceDto updatePlaceDto) 
         {
             try 
             {
-                if (updatePlaceDto == null) 
-                {
-                    _apiResponse.Failure("Update Place Dto not provided.");
-                    return BadRequest(_apiResponse);
-                }
-
                 if (id != updatePlaceDto.Id) 
                 {
                     _apiResponse.Failure("The provided Id does not match the Dto Id.");

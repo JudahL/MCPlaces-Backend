@@ -4,15 +4,13 @@ namespace MCPlaces_Backend.Models.Dtos
 {
     public class CreatePlaceDto
     {
-        public CreatePlaceDto(int id, string name, string desc, string imgName, Coordinates coords)
+        public CreatePlaceDto(string name, string desc, string imgName, Coordinates coords)
         {
-            Id = id;
             Name = name;
             Description = desc;
             ImageName = imgName;
             Coordinates = coords;
         }
-        public int Id { get; set; }
         public string Name { get; set; } = String.Empty;
         public string Description { get; set; } = String.Empty;
         public string ImageName { get; set; } = String.Empty;

@@ -6,6 +6,7 @@ namespace MCPlaces_Backend.Models.ApiResponse
     {
         public bool IsSuccess { get; private set; } = true;
         public object? Data { get; private set; }
+        public List<string> ErrorMessages { get; private set; } = new List<string>();   
 
         public void Success(object? data = null) 
         {
@@ -13,15 +14,15 @@ namespace MCPlaces_Backend.Models.ApiResponse
             Data = data;
         }
 
-        public void Failure(object? data = null) 
+        public void Failure(string? errorMessage = null) 
         {
-            if (data == null) 
+            if (errorMessage == null) 
             {
-                data = "An unknown error has occured.";
+                errorMessage = "An unknown error has occured.";
             }
 
             IsSuccess = false;
-            Data = data;
+            ErrorMessages.Add(errorMessage);
         }
     }
 }
