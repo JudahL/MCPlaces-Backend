@@ -11,6 +11,7 @@ namespace MCPlaces_Backend.Utilities.Mappers
         {
             return new GetPlaceDto(
                 place.Id,
+                place.ServerId,
                 place.Name,
                 place.Description,
                 place.ImageName,
@@ -19,6 +20,7 @@ namespace MCPlaces_Backend.Utilities.Mappers
         public CreatePlaceDto PlaceToCreateDto(Place place)
         {
             return new CreatePlaceDto(
+                place.ServerId,
                 place.Name,
                 place.Description,
                 place.ImageName,
@@ -29,6 +31,7 @@ namespace MCPlaces_Backend.Utilities.Mappers
         {
             return new UpdatePlaceDto(
                 place.Id,
+                place.ServerId,
                 place.Name,
                 place.Description,
                 place.ImageName,
@@ -39,6 +42,7 @@ namespace MCPlaces_Backend.Utilities.Mappers
         {
             Place place = new Place();
             place.Id = getPlaceDto.Id;
+            place.ServerId = getPlaceDto.ServerId;
             place.Name = getPlaceDto.Name;
             place.Description = getPlaceDto.Description;
             place.ImageName = getPlaceDto.ImageName;
@@ -51,6 +55,7 @@ namespace MCPlaces_Backend.Utilities.Mappers
         public Place CreateDtoToPlace(CreatePlaceDto createPlaceDto)
         {
             Place place = new Place();
+            place.ServerId = createPlaceDto.ServerId;
             place.Name = createPlaceDto.Name;
             place.Description = createPlaceDto.Description;
             place.ImageName = createPlaceDto.ImageName;
@@ -64,6 +69,7 @@ namespace MCPlaces_Backend.Utilities.Mappers
         {
             Place place = new Place();
             place.Id = updatePlaceDto.Id;
+            place.ServerId = updatePlaceDto.ServerId;
             place.Name = updatePlaceDto.Name;
             place.Description = updatePlaceDto.Description;
             place.ImageName = updatePlaceDto.ImageName;
