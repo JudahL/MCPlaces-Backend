@@ -10,5 +10,7 @@ namespace MCPlaces_Backend.Data
         }
 
         public DbSet<Place> Places { get; set; }
+
+        public DbSet<Server> Servers { get; set; }
     }
 }
