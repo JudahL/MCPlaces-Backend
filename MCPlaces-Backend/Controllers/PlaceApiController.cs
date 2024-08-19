@@ -6,6 +6,7 @@ using MCPlaces_Backend.Utilities.Mappers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using MCPlaces_Backend.Utilities.ActionFilters.Interfaces;
 using System.Net;
+using MCPlaces_Backend.Repository.ServerRepository.Interfaces;
 
 namespace MCPlaces_Backend.Controllers
 {
@@ -13,14 +14,16 @@ namespace MCPlaces_Backend.Controllers
     [ApiController]
     public class PlaceApiController : ControllerBase
     {
-        public PlaceApiController(IPlaceRepository placeRepo, IPlaceMapper placeMapper, IApiResponse apiResponse)
+        public PlaceApiController(IPlaceRepository placeRepo, IServerRepository serverRepo, IPlaceMapper placeMapper, IApiResponse apiResponse)
         {
             _placeRepo = placeRepo;
+            _serverRepo = serverRepo;
             _placeMapper = placeMapper;
             _apiResponse = apiResponse; 
         }
 
         private readonly IPlaceRepository _placeRepo;
+        private readonly IServerRepository _serverRepo;
         private readonly IPlaceMapper _placeMapper;
         private readonly IApiResponse _apiResponse;
 
@@ -78,6 +81,12 @@ namespace MCPlaces_Backend.Controllers
         {
             try
             {
+                if (await _serverRepo.GetAsync(x => x.Id == createPlaceDto.ServerId) == null) 
+                {
+                    _apiResponse.Failure("No Server with given Server Id could be found.");
+                    return BadRequest(_apiResponse);
+                }
+                
                 Place place = _placeMapper.CreateDtoToPlace(createPlaceDto);
 
                 await _placeRepo.CreateAsync(place);
@@ -104,6 +113,11 @@ namespace MCPlaces_Backend.Controllers
                 if (id != updatePlaceDto.Id) 
                 {
                     _apiResponse.Failure("The provided Id does not match the Dto Id.");
+                    return BadRequest(_apiResponse);
+                }
+                if (await _serverRepo.GetAsync(x => x.Id == updatePlaceDto.ServerId) == null)
+                {
+                    _apiResponse.Failure("No Server with given Server Id could be found.");
                     return BadRequest(_apiResponse);
                 }
 
