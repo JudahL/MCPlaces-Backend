@@ -12,7 +12,18 @@ using MCPlaces_Backend.Utilities.Mappers.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+var reactPolicyName = "ReactApp";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: reactPolicyName,
+                      policy =>
+                      {
+                          policy.WithOrigins(builder.Configuration.GetSection("CorsOrigins").GetSection(reactPolicyName).Value);
+                      });
+});
 
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(option => 
@@ -52,6 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(reactPolicyName);
 
 app.UseAuthorization();
 
